@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+
+
+
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputScript library="js" name="scripts.js" />
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Layout Sistema</title>
+</h:head>
+<h:body>
+
+	<p:growl id="msgGlobal" life="4000" />
+
+	<p:layout fullPage="true">
+	
+		<p:layoutUnit position="north">
+		<ui:include src="/includes/menu.xhtml">
+</ui:include>
+		
+			<ui:insert name="menu" />
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+		
+			<ui:insert name="conteudo" />
+
+			<h6 align="left"><img src="resources/imagens/lg.png" width="400" height="400"   />	</h6>
+			
+			
+			<h:panelGroup rendered="not empty user" >
+			<p>Bem vindo, #{user} </p>
+			<h:form>
+			<h:commandButton value="logout" action ="#{login.logout}" />
+			</h:form>
+			</h:panelGroup>
+			
+			
+						<h3 align="center" >
+	<font face="monospace" color="red" size="7" >Ruiva Fashion</font><font face="monospace" color="black" size="7" >, surgiu como um trabalho da faculdade no ano de 2018. <br></br>
+	Com  o intuito de otimizar o trabalho de pequenos empreendedores e levar conforto e segurança para quem gosta de estar sempre na moda com custos acessíveis .<br></br>
+	Tudo isso, diretamente do conforto de sua casa.<br></br>
+	Nosso site, disponibiliza peças de qualidade com um menor custo.<br></br>
+	Cadastre-se e venha conferir. <br></br>
+	<br></br> Telefone: (61)9999-9999<br></br>
+	 Whats:(61)99999-9999<br></br>
+	 <br></br>
+	 </font>
+	
+	
+	</h3>
+	
+
+			<img src="resources/imagens/calca.jpg" align="middle" width="350" height="600" />	
+			<img src="resources/imagens/longo.jpg" align="middle" width="350" height="600" />	
+			<img src="resources/imagens/short.jpg" align="middle" width="350" height="600" />	
+			<img src="resources/imagens/saia.jpg" align="middle" width="350" height="600" />	
+			<img src="resources/imagens/blusa.jpeg" align="middle" width="350" height="600" />	
+			
+
+	
+			
+		</p:layoutUnit>
+
+	</p:layout>
+	
+<div id="footer">
+	<address><font color="red" size="4">Ruiva Fashion</font></address>
+</div>
+
+</h:body>
+</html>
+
+
+
+
+
+

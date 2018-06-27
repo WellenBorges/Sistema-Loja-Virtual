@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/ruivaFashion.xhtml">
+	
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="conteudo">
+	
+
+	<p:dialog header="Dynamic Focus" widgetVar="dlgRecuperar" focus="age">
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="name" value="Name:" />
+            <p:inputText id="name" label="name" />
+ 
+            <h:outputLabel for="surname" value="Surname:" />
+            <p:inputText id="surname" label="surname" />
+ 
+            <h:outputLabel for="age" value="Age:" />
+            <p:inputText id="age" label="age" />
+        </h:panelGrid>
+    </p:dialog>
+	
+
+	
+	
+	</ui:define>
+</ui:composition>
+	

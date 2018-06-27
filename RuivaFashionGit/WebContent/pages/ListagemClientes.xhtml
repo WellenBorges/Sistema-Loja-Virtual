@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/ruivaFashion.xhtml">
+
+	<ui:define name="menu">
+		<ui:include src="/includes/menu.xhtml">
+		</ui:include>
+	</ui:define>
+
+	<ui:define name="conteudo">
+
+		<h:form id="frmClientes">
+
+			<p:dataTable id="tbClientes" widgetVar="tabelaClientes"
+				emptyMessage="Nenhum registro encontrado!"
+				value="#{MBClientes.itens}" var="item"
+				filteredValue="#{MBClientes.itensFiltrados}" paginator="true"
+				rows="15">
+
+				<f:facet name="header"> Lista de Clientes: </f:facet>
+
+				<p:column headerText="Idcliente" sortBy="#{item.idcliente}"
+					filterBy="#{item.idcliente}">
+					<h:outputText value="#{item.idcliente}" />
+				</p:column>
+
+				<p:column headerText="Nome" sortBy="#{item.nome}"
+					filterBy="#{item.nome}">
+					<h:outputText value="#{item.nome}" />
+				</p:column>
+
+				<p:column headerText="CPF" sortBy="#{item.cpf}"
+					filterBy="#{item.cpf}">
+					<h:outputText value="#{item.cpf}" />
+				</p:column>
+
+				<p:column headerText="RG" sortBy="#{item.rg}" filterBy="#{item.rg}">
+					<h:outputText value="#{item.rg}" />
+				</p:column>
+
+				<p:column headerText="Sexo" sortBy="#{item.sexo}"
+					filterBy="#{item.sexo}">
+					<h:outputText value="#{item.sexo}" />
+				</p:column>
+
+				<p:column headerText="Email" sortBy="#{item.email}"
+					filterBy="#{item.email}">
+					<h:outputText value="#{item.email}" />
+				</p:column>
+
+				<p:column headerText="Data de Nascimento"
+					sortBy="#{item.datanascimento}" filterBy="#{item.datanascimento}">
+					<h:outputText value="#{item.datanascimento}" />
+				</p:column>
+
+
+				<p:column headerText="Opções">
+
+					<p:commandButton icon="ui-icon-trash"
+						oncomplete="PF('dlgcliExcluir').show();"
+						update=":frmcliExcluir:pncliExcluir">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{MBClientes.clientes}">
+						</f:setPropertyActionListener>
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						oncomplete="PF('dlgcliEditar').show();"
+						update=":frmcliEditar:pncliEditar">
+						<f:setPropertyActionListener value="#{item}"
+							target="#{MBClientes.clientes}"></f:setPropertyActionListener>
+					</p:commandButton>
+
+				</p:column>
+
+
+				<f:facet name="footer">
+
+					<p:commandButton value="Novo"
+						actionListener="#{MBClientes.prepararNovo}"
+						oncomplete="PF('dlgcliNovo').show();"
+						update=":frmclienteNovo:pnclienteNovo" />
+
+				</f:facet>
+
+			</p:dataTable>
+		</h:form>
+
+
+		<p:dialog widgetVar="dlgcliNovo" closable="false" draggable="false"
+			resizable="false" header="Cadastar Cliente:" modal="true"
+			appendTo="@(body)">
+
+			<h:form id="frmclienteNovo">
+
+				<h:panelGrid id="pnclienteNovo" colummns="2">
+
+					<h:outputLabel value="Nome*" for="txtNomeNovo" />
+
+					<p:inputText size="30" maxlength="45" id="txtNomeNovo"
+						required="true"
+						value="#{MBClientes.clientes.nome}" 
+						requiredMessage="O campo nome é obrigatório!" />
+
+					<p:outputLabel value="Cpf*" for="txtCpfNovo" />
+
+					<p:inputMask id="txtCpfNovo" value="#{MBClientes.clientes.cpf}"
+						mask="999.999.999-99" required="true"
+						requiredMessage="O campo CPF é obrigatório!" />
+
+					<h:outputLabel value="RG*" for="txtRgNovo" />
+
+					<p:inputMask id="txtRgNovo" value="#{MBClientes.clientes.rg}"
+						mask="999.999" required="true"
+						requiredMessage="O campo RG é obrigatório!" />
+
+
+					<h:outputLabel value="Sexo*" for="txtSexoNovo" />
+
+
+					<p:inputText size="30" maxlength="45" id="txtSexoNovo"
+						value="#{MBClientes.clientes.sexo}" required="true"
+						requiredMessage="O campo Sexo é obrigatório!" />
+
+					<h:outputLabel value="E-mail*" for="txtEmailNovo" />
+
+					<p:inputText size="30" maxlength="45" id="txtEmailNovo"
+						value="#{MBClientes.clientes.email}" required="true"
+						requiredMessage="O campo E-mail é obrigatório!" />
+
+
+
+					<h:outputLabel value="Data de nascimento*"
+						for="txtDatanascimentoNovo" />
+
+					<p:inputMask id="txtDatanascimentoNovo"
+						value="#{MBClientes.clientes.datanascimento}" mask="99/99/99"
+						required="true"
+						requiredMessage="O campo Data de Nascimento é obrigatório!" />
+
+	<h:outputLabel value="Senha*"
+						for="senha" />
+
+					<p:password id="senha" value="#{MBClientes.clientes.senha}" required="true"
+					label="senha" />
+
+
+
+
+				</h:panelGrid>
+
+				<h:panelGrid colummns="2">
+
+					<p:commandButton value="Salvar" actionListener="#{MBClientes.novo}"
+						oncomplete="verificar(xhr, status, args, 'dlgcliNovo', 'tbClientes');"
+						update=":frmClientes:tbClientes :msgGlobal" />
+
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgcliNovo').hide();" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgcliExcluir" closable="false" draggable="false"
+			resizable="false" header="Excluir Cliente:" modal="true"
+			appendTo="@(body)">
+
+			<h:form id="frmcliExcluir">
+
+				<h:panelGrid id="pncliExcluir" columns="2">
+
+					<h:outputText value="Idcliente" />
+					<h:outputText value="#{MBClientes.clientes.idcliente}" />
+
+					<h:outputText value="Nome" />
+					<h:outputText value="#{MBClientes.clientes.nome}" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+
+					<p:commandButton value="Excluir"
+						actionListener="#{MBClientes.excluir}"
+						oncomplete="PF('dlgcliExcluir').hide(); PF('tabelaClientes').clearFilters();"
+						update=":frmClientes:tbClientes :msgGlobal" />
+
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgcliExcluir').hide();" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+
+		<p:dialog widgetVar="dlgcliEditar" closable="false" draggable="false"
+			resizable="false" header="Editar Cliente:" modal="true"
+			appendTo="@(body)">
+
+			<h:form id="frmcliEditar">
+
+				<h:panelGrid id="pncliEditar" columns="2">
+ 
+					<h:outputText value="Idcliente" />
+					<h:outputText value="#{MBClientes.clientes.idcliente}" />
+
+					<h:outputText value="Nome*" for="txtNomeEditar" />
+					<h:inputText value="#{MBClientes.clientes.nome}" id="txtNomeEditar"
+						required="true" requiredMessage="O campo nome é obrigatório!" />
+
+					<h:outputText value="CPF*" for="txtCpfEditar" />
+					<p:inputMask id="txtCpfEditar" value="#{MBClientes.clientes.cpf}"
+						mask="999.999.999-99" required="true"
+						requiredMessage="O campo CPF é obrigatório!" />
+
+					<h:outputText value="RG*" for="txtRgEditar" />
+					<p:inputMask id="txtRgEditar" value="#{MBClientes.clientes.rg}"
+						mask="999.999" required="true"
+						requiredMessage="O campo RG é obrigatório!" />
+
+					<h:outputText value="Sexo*" for="txtSexoEditar" />
+					<h:inputText value="#{MBClientes.clientes.sexo}" id="txtSexoEditar"
+						required="true" requiredMessage="O campo Sexo é obrigatório!" />
+
+					<h:outputText value="E-mail*" for="txtEmailEditar" />
+					<h:inputText value="#{MBclientes.clientes.email}"
+						id="txtEmailEditar" required="true"
+						requiredMessage="O campo E-mail é obrigatório!" />
+
+					<h:outputText value="Data de Nascimento*"
+						for="txtDatanascimentoEditar" />
+					<p:inputMask id="txtDatanascimentoEditar"
+						value="#{MBClientes.clientes.datanascimento}" mask="99/99/99"
+						required="true"
+						requiredMessage="O campo Data de Nascimento é obrigatório!" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+
+					<p:commandButton value="Editar"
+						actionListener="#{MBClientes.editar}"
+						oncomplete="verificar(xhr, status, args, 'dlgcliEditar', 'tbClientes');"
+						update=":frmClientes:tbClientes :msgGlobal" />
+
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgcliEditar').hide();" />
+				</h:panelGrid>
+
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>
