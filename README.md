@@ -1,2 +1,1 @@
-# Sistema-Ruiva-Fashion
-apresentação
+# Sistema-Loja-Virtual
